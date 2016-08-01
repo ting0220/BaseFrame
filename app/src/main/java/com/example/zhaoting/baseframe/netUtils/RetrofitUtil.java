@@ -23,7 +23,7 @@ public class RetrofitUtil {
     private Retrofit mRetrofit;
 
 
-    private boolean DEBUG = false;
+    private boolean DEBUG = true;
 
     private static class SingletonHolder {
         private static RetrofitUtil instance = new RetrofitUtil();

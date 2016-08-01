@@ -17,8 +17,17 @@ public class HttpResult<T> {
      */
     private String result;
     private T data;
+    private String cursor;
     private String success;
     private String errors;
+
+    public String getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
+    }
 
     public String getResult() {
         return result;
