@@ -1,66 +1,51 @@
 package com.example.zhaoting.baseframe.bean;
 
-import java.util.List;
-
 /**
  * Created by zhaoting on 16/4/21.
  */
 public class LoginBean {
+
     /**
-     * "access_token":"0186114ea30bc5b5178301f206eb0bbc",
-     * "user_unique_key":"9986114ea30bc5e5178301f206eb0bab",
-     * "expiration": 23435123232
+     * access_token : 87221f079f3c500506fab630c57a56fe939fcafd
+     * user_unique_key : ckI8OarTJJgwLhiDLas4snspCzsPg2pM
+     * expiration : 1477106692
+     * user_guid : 1000839
      */
 
+    private String access_token;
+    private String user_unique_key;
+    private String expiration;
+    private String user_guid;
 
-    private List<DataBean> data;
-    private CursorBean cursor;
-
-    public CursorBean getCursor() {
-        return cursor;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setCursor(CursorBean cursor) {
-        this.cursor = cursor;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 
-    public List<DataBean> getData() {
-        return data;
+    public String getUser_unique_key() {
+        return user_unique_key;
     }
 
-    public void setData(List<DataBean> data) {
-        this.data = data;
+    public void setUser_unique_key(String user_unique_key) {
+        this.user_unique_key = user_unique_key;
     }
 
-    public static class DataBean {
-        private String accessToken;
-        private String userUniqueKey;
-        private long expiration;
+    public String getExpiration() {
+        return expiration;
+    }
 
-        public String getAccessToken() {
-            return accessToken;
-        }
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
+    }
 
-        public void setAccessToken(String accessToken) {
-            this.accessToken = accessToken;
-        }
+    public String getUser_guid() {
+        return user_guid;
+    }
 
-        public String getUserUniqueKey() {
-            return userUniqueKey;
-        }
-
-        public void setUserUniqueKey(String userUniqueKey) {
-            this.userUniqueKey = userUniqueKey;
-        }
-
-        public long getExpiration() {
-            return expiration;
-        }
-
-        public void setExpiration(long expiration) {
-            this.expiration = expiration;
-        }
-
-
+    public void setUser_guid(String user_guid) {
+        this.user_guid = user_guid;
     }
 }
