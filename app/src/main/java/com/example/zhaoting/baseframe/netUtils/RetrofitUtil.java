@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitUtil {
     private Retrofit mRetrofit;
+    private OkHttpClient mOkHttpClient;
 
 
     private boolean DEBUG = true;
@@ -29,7 +30,19 @@ public class RetrofitUtil {
         private static RetrofitUtil instance = new RetrofitUtil();
     }
 
-    public  RetrofitUtil() {
+    public RetrofitUtil() {
+        initOkHttp();
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(Constans.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(mOkHttpClient)
+                .build();
+
+
+    }
+
+    private void initOkHttp() {
         //add headers
         Interceptor netWorkInterceptor = new Interceptor() {
             @Override
@@ -65,20 +78,8 @@ public class RetrofitUtil {
 
             mOkHttpClientBuild.addInterceptor(loggingInterceptor);
         }
-
-        OkHttpClient mOkHttpClient = mOkHttpClientBuild.build();
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(Constans.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(mOkHttpClient)
-                .build();
-
-
-
+        mOkHttpClient = mOkHttpClientBuild.build();
     }
-
-
 
     public static RetrofitUtil getInstance() {
         return SingletonHolder.instance;

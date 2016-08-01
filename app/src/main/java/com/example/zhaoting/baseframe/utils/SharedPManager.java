@@ -65,10 +65,10 @@ public class SharedPManager {
      * 登录后接口返回的数据，用于后边的请求
      * access_token user_unique_key expiration
      */
-    public void setLoginMessage(LoginBean.DataBean bean) {
-        getSharedPreferences().edit().putString("access_token", bean.getAccessToken()).commit();
-        getSharedPreferences().edit().putString("user_unique_key", bean.getUserUniqueKey()).commit();
-        getSharedPreferences().edit().putLong("expiration", bean.getExpiration()).commit();
+    public void setLoginMessage(LoginBean bean) {
+        getSharedPreferences().edit().putString("access_token", bean.getAccess_token()).commit();
+        getSharedPreferences().edit().putString("user_unique_key", bean.getUser_unique_key()).commit();
+        getSharedPreferences().edit().putString("expiration", bean.getExpiration()).commit();
     }
 
     /**

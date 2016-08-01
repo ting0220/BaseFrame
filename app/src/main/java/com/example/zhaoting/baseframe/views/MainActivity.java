@@ -8,8 +8,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.zhaoting.baseframe.R;
+<<<<<<< HEAD
 import com.example.zhaoting.baseframe.interfaces.LoginInterface;
 import com.example.zhaoting.baseframe.netUtils.Constans;
+=======
+import com.example.zhaoting.baseframe.bean.LoginBean;
+import com.example.zhaoting.baseframe.interfaces.ApiInterface;
+import com.example.zhaoting.baseframe.netUtils.Constans;
+import com.example.zhaoting.baseframe.netUtils.HttpResultFunc;
+import com.example.zhaoting.baseframe.netUtils.HttpResultSubscribe;
+>>>>>>> a9f1614d90748f923780fddfdcde6e4ac73c7dfc
 import com.example.zhaoting.baseframe.netUtils.RetrofitUtil;
 import com.example.zhaoting.baseframe.utils.SharedPManager;
 import com.example.zhaoting.baseframe.utils.Utils;
@@ -19,7 +27,10 @@ import java.util.Map;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+<<<<<<< HEAD
 import rx.functions.Func1;
+=======
+>>>>>>> a9f1614d90748f923780fddfdcde6e4ac73c7dfc
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -51,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 map.put("grant_type", "password");
                 map.put("username", accountText.getText().toString());
                 map.put("password", passwordText.getText().toString());
+<<<<<<< HEAD
                 retrofitUtil.getInstance().create(LoginInterface.class).getLogin(map)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -78,6 +90,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void onNext(String loginBeanHttpResult) {
                                 Log.d("tag", loginBeanHttpResult.toString());
                                 onCompleted();
+=======
+                map.put("grant_type", "password");
+
+                retrofitUtil.getInstance().create(ApiInterface.class).getLogin(map)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.newThread())
+                        .map(new HttpResultFunc<LoginBean>())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new HttpResultSubscribe<LoginBean>() {
+                            @Override
+                            public void onNext(LoginBean loginBean) {
+                                Log.i("tag", loginBean.toString());
+>>>>>>> a9f1614d90748f923780fddfdcde6e4ac73c7dfc
                             }
 
                         });

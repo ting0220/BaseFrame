@@ -19,7 +19,8 @@ public class HttpResult<T> {
     private T data;
     private String cursor;
     private String success;
-    private String errors;
+    private Object errors;
+    private Object cursor;
 
     public String getCursor() {
         return cursor;
@@ -53,11 +54,19 @@ public class HttpResult<T> {
         this.success = success;
     }
 
-    public String getErrors() {
+    public Object getErrors() {
         return errors;
     }
 
-    public void setErrors(String errors) {
+    public void setErrors(Object errors) {
         this.errors = errors;
+    }
+
+    public Object getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(Object cursor) {
+        this.cursor = cursor;
     }
 }
