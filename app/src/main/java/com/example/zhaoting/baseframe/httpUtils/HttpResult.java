@@ -1,4 +1,4 @@
-package com.example.zhaoting.baseframe.netUtils;
+package com.example.zhaoting.baseframe.httpUtils;
 
 /**
  * Created by zhaoting on 16/7/28.

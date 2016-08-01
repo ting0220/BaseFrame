@@ -1,4 +1,4 @@
-package com.example.zhaoting.baseframe.netUtils;
+package com.example.zhaoting.baseframe.httpUtils;
 
 import com.example.zhaoting.baseframe.bean.ErrorBean;
 import com.example.zhaoting.baseframe.utils.Utils;

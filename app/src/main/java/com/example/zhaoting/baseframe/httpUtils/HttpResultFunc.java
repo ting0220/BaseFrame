@@ -1,4 +1,4 @@
-package com.example.zhaoting.baseframe.netUtils;
+package com.example.zhaoting.baseframe.httpUtils;
 
 import rx.functions.Func1;
 

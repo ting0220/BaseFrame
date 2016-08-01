@@ -69,6 +69,7 @@ public class SharedPManager {
         getSharedPreferences().edit().putString("access_token", bean.getAccess_token()).commit();
         getSharedPreferences().edit().putString("user_unique_key", bean.getUser_unique_key()).commit();
         getSharedPreferences().edit().putString("expiration", bean.getExpiration()).commit();
+        getSharedPreferences().edit().putString("user_guid", bean.getUser_guid()).commit();
     }
 
     /**
@@ -78,6 +79,7 @@ public class SharedPManager {
         getSharedPreferences().edit().remove("access_token").commit();
         getSharedPreferences().edit().remove("user_unique_key").commit();
         getSharedPreferences().edit().remove("expiration").commit();
+        getSharedPreferences().edit().remove("user_guid").commit();
     }
 
     public String getAccessToken() {
@@ -88,8 +90,12 @@ public class SharedPManager {
         return getSharedPreferences().getString("user_unique_key", "");
     }
 
-    public long getExpiration() {
-        return getSharedPreferences().getLong("expiration", 0);
+    public String getExpiration() {
+        return getSharedPreferences().getString("expiration", "");
+    }
+
+    public String getUserGuid() {
+        return getSharedPreferences().getString("user_guid", "");
     }
 
     /**

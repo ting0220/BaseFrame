@@ -2,7 +2,7 @@ package com.example.zhaoting.baseframe.interfaces;
 
 import com.example.zhaoting.baseframe.bean.LoginBean;
 import com.example.zhaoting.baseframe.bean.WordBean;
-import com.example.zhaoting.baseframe.netUtils.HttpResult;
+import com.example.zhaoting.baseframe.httpUtils.HttpResult;
 
 import java.util.List;
 import java.util.Map;

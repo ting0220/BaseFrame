@@ -1,4 +1,4 @@
-package com.example.zhaoting.baseframe.netUtils;
+package com.example.zhaoting.baseframe.httpUtils;
 
 
 import com.example.zhaoting.baseframe.utils.SharedPManager;
@@ -56,10 +56,10 @@ public class RetrofitUtil {
                         .addHeader("identifier", SharedPManager.getInstance().getDeviceId())
                         .addHeader("app_version", Utils.getInstance().getAppVersionName());
                 if (!SharedPManager.getInstance().getUserUniqueKey().equals("")) {
-                    requestBuild.addHeader("user_unique_key", Constans.user_unique_key);
+                    requestBuild.addHeader("user_unique_key", SharedPManager.getInstance().getUserUniqueKey());
                 }
                 if (!SharedPManager.getInstance().getAccessToken().equals("")) {
-                    requestBuild.addHeader("access_token", Constans.access_token);
+                    requestBuild.addHeader("access_token",SharedPManager.getInstance().getAccessToken());
                 }
                 Request request = requestBuild.build();
                 return chain.proceed(request);
