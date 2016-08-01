@@ -2,6 +2,7 @@ package com.example.zhaoting.baseframe.views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,8 +58,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .subscribe(new Action1<LoginBean>() {
                             @Override
                             public void call(LoginBean loginBean) {
-                                LoginBean.DataBean bean= (LoginBean.DataBean) loginBean.getData();
+                                LoginBean.DataBean bean = (LoginBean.DataBean) loginBean.getData();
                                 Utils.getInstance().ToastShort(bean.getAccessToken());
+                            }
+                        }, new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                Log.i("tag","error");
                             }
                         });
             }
