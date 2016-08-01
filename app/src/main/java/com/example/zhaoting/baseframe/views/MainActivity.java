@@ -10,7 +10,7 @@ import com.example.zhaoting.baseframe.R;
 import com.example.zhaoting.baseframe.bean.LoginBean;
 import com.example.zhaoting.baseframe.interfaces.LoginInterface;
 import com.example.zhaoting.baseframe.netUtils.Constans;
-import com.example.zhaoting.baseframe.netUtils.HttpResult;
+import com.example.zhaoting.baseframe.netUtils.HttpResultFunc;
 import com.example.zhaoting.baseframe.netUtils.HttpResultSubscribe;
 import com.example.zhaoting.baseframe.netUtils.RetrofitUtil;
 import com.example.zhaoting.baseframe.utils.SharedPManager;
@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -55,13 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 retrofitUtil.getInstance().create(LoginInterface.class).getLogin(map)
                         .subscribeOn(Schedulers.io())
                         .observeOn(Schedulers.newThread())
-                        .map(new Func1<HttpResult<LoginBean>, LoginBean>() {
-
-                            @Override
-                            public LoginBean call(HttpResult<LoginBean> loginBeanHttpResult) {
-                                return loginBeanHttpResult.getData();
-                            }
-                        })
+                        .map(new HttpResultFunc<LoginBean>())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new HttpResultSubscribe<LoginBean>() {
                             @Override
