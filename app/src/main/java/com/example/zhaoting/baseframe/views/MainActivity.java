@@ -2,13 +2,14 @@ package com.example.zhaoting.baseframe.views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.zhaoting.baseframe.R;
 import com.example.zhaoting.baseframe.bean.LoginBean;
-import com.example.zhaoting.baseframe.interfaces.LoginInterface;
+import com.example.zhaoting.baseframe.interfaces.ApiInterface;
 import com.example.zhaoting.baseframe.netUtils.Constans;
 import com.example.zhaoting.baseframe.netUtils.HttpResultFunc;
 import com.example.zhaoting.baseframe.netUtils.HttpResultSubscribe;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 map.put("password", passwordText.getText().toString());
                 map.put("grant_type", "password");
 
-                retrofitUtil.getInstance().create(LoginInterface.class).getLogin(map)
+                retrofitUtil.getInstance().create(ApiInterface.class).getLogin(map)
                         .subscribeOn(Schedulers.io())
                         .observeOn(Schedulers.newThread())
                         .map(new HttpResultFunc<LoginBean>())
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .subscribe(new HttpResultSubscribe<LoginBean>() {
                             @Override
                             public void onNext(LoginBean loginBean) {
-
+                                Log.i("tag", loginBean.toString());
                             }
                         });
             }

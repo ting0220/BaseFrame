@@ -8,14 +8,10 @@ public class Constans {
     public static String APP_SECRET = "4d162e4d7740196701ea";
     public static String DEVICE = "android";
 
-
-
     public static final  String BASE_URL="http://api.tmtpost.com/v1/";
 
     public static String access_token = "";
 
-    public static String identifier = "";
-    public static String app_version = "";
     public static String user_unique_key = "";
 
 }
