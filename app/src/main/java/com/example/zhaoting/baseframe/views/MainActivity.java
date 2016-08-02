@@ -8,16 +8,18 @@ import android.widget.TextView;
 
 import com.example.zhaoting.baseframe.R;
 import com.example.zhaoting.baseframe.models.LoginModel;
+import com.example.zhaoting.baseframe.presenters.LoginPresenter;
 import com.example.zhaoting.baseframe.utils.NetUtils;
 import com.example.zhaoting.baseframe.utils.SharedPManager;
 import com.example.zhaoting.baseframe.utils.Utils;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, BaseView {
     EditText accountText;
     EditText passwordText;
     TextView login;
     LoginModel model;
+    LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +32,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NetUtils.getInstance().init(this);
         SharedPManager.getInstance().init(this);
         login.setOnClickListener(this);
+
+        setPresenter();
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_login: {
-                model.getInstance().getLogin(accountText.getText().toString(), passwordText.getText().toString());
+                presenter.getLogin(accountText.getText().toString(), passwordText.getText().toString());
+//                model.getInstance().getLogin(accountText.getText().toString(), passwordText.getText().toString());
             }
             break;
         }
+    }
+
+    @Override
+    public void setPresenter() {
+        presenter = new LoginPresenter();
+        presenter.attachView(this);
     }
 }
