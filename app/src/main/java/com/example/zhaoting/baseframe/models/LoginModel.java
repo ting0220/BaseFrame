@@ -1,22 +1,19 @@
 package com.example.zhaoting.baseframe.models;
 
-import android.util.Log;
-
 import com.example.zhaoting.baseframe.bean.LoginBean;
 import com.example.zhaoting.baseframe.httpUtils.Constans;
+import com.example.zhaoting.baseframe.httpUtils.HttpResult;
 import com.example.zhaoting.baseframe.httpUtils.HttpResultFunc;
 import com.example.zhaoting.baseframe.httpUtils.HttpResultSubscribe;
 import com.example.zhaoting.baseframe.httpUtils.RetrofitUtil;
 import com.example.zhaoting.baseframe.interfaces.ApiInterface;
 import com.example.zhaoting.baseframe.utils.NetUtils;
 import com.example.zhaoting.baseframe.utils.SharedPManager;
-import com.example.zhaoting.baseframe.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -34,7 +31,7 @@ public class LoginModel {
         return SingletonHolder.instance;
     }
 
-    public void getLogin(String username,String password){
+    public void getLogin(String username, String password, final LoginInterface<LoginBean> loginInterface) {
         Map<String, String> map = new HashMap<>();
         map.put("client_id", Constans.APP_KEY);
         map.put("client_secret", Constans.APP_SECRET);
@@ -45,12 +42,11 @@ public class LoginModel {
         if (NetUtils.getInstance().isNetConnected()) {
             RetrofitUtil.getInstance().create(ApiInterface.class).getLogin(map)
                     .subscribeOn(Schedulers.io())
-                    .map(new HttpResultFunc<LoginBean>())
-                    .map(new Func1<LoginBean, LoginBean>() {
+                    .map(new HttpResultFunc<LoginBean>() {
                         @Override
-                        public LoginBean call(LoginBean loginBean) {
-                            SharedPManager.getInstance().setLoginMessage(loginBean);
-                            return loginBean;
+                        public LoginBean call(HttpResult<LoginBean> loginBeanHttpResult) {
+                            SharedPManager.getInstance().setLoginMessage(loginBeanHttpResult.getData());
+                            return loginBeanHttpResult.getData();
                         }
                     })
                     .unsubscribeOn(Schedulers.io())
@@ -58,12 +54,17 @@ public class LoginModel {
                     .subscribe(new HttpResultSubscribe<LoginBean>() {
                         @Override
                         public void onNext(LoginBean loginBean) {
-                            Log.i("tag", loginBean.toString());
+                            loginInterface.loginSuccess(loginBean);
                         }
 
                     });
-        }else{
-            Utils.getInstance().ToastShort("网络连接错误，请检查网络连接");
+        } else {
+            loginInterface.loginNetError();
         }
+    }
+
+    public interface LoginInterface<T> {
+        void loginSuccess(T t);
+        void loginNetError();
     }
 }

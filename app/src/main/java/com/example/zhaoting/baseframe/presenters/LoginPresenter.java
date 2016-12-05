@@ -1,5 +1,6 @@
 package com.example.zhaoting.baseframe.presenters;
 
+import com.example.zhaoting.baseframe.bean.LoginBean;
 import com.example.zhaoting.baseframe.models.LoginModel;
 import com.example.zhaoting.baseframe.views.BaseView;
 
@@ -9,20 +10,22 @@ import com.example.zhaoting.baseframe.views.BaseView;
 public class LoginPresenter implements BasePresenter {
     private BaseView mView;
 
-
     public void getLogin(String account, String password) {
-        LoginModel.getInstance().getLogin(account, password);
+        LoginModel.getInstance().getLogin(account, password, new LoginModel.LoginInterface<LoginBean>() {
+            @Override
+            public void loginSuccess(LoginBean loginBean) {
+                mView.onSuccess("login_success");
+            }
+
+            @Override
+            public void loginNetError() {
+                mView.onError();
+            }
+        });
     }
 
     @Override
     public void attachView(BaseView view) {
         mView = view;
     }
-
-
-//    @Override
-//    public void start() {
-//        getLogin()
-//        LoginModel.getInstance().getLogin();
-//    }
 }
