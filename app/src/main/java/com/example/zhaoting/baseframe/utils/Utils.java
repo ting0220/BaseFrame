@@ -1,18 +1,19 @@
 package com.example.zhaoting.baseframe.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -33,7 +34,6 @@ public class Utils {
 
     private int mScreenWidth = 0;
     private int mScreenHeight = 0;
-    private String splashPath;
 
 
     /**
@@ -91,13 +91,9 @@ public class Utils {
     /**
      * 关闭键盘
      */
-    public void closeInputMethod(Activity act) {
-        View view = act.getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) mContext
-                    .getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+    public void closeInputMethod() {
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**
@@ -168,7 +164,6 @@ public class Utils {
         final float scale = mContext.getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
     }
-
 
 
     public boolean getTheme() {
@@ -251,5 +246,38 @@ public class Utils {
         return mScreenHeight;
     }
 
+
+    /**
+     * 截图
+     *
+     * @param view
+     * @return
+     */
+    public Bitmap convertViewToBitmap(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        view.destroyDrawingCache();
+        return bitmap;
+    }
+
+
+    /**
+     * 截取长图
+     *
+     * @param view
+     * @return
+     */
+    public static Bitmap getScrollViewBitmap(ViewGroup view) {
+        int h = 0;
+        for (int i = 0; i < view.getChildCount(); i++) {
+            h += view.getChildAt(i).getHeight();
+        }
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), h, Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
 
 }
