@@ -4,11 +4,19 @@ import com.example.zhaoting.baseframe.bean.LoginBean;
 import com.example.zhaoting.baseframe.models.LoginModel;
 import com.example.zhaoting.baseframe.views.BaseView;
 
+import javax.inject.Inject;
+
 /**
- * Created by Z_TING on 2016/8/1.
+ * Created by zhaoting on 16/12/16.
  */
-public class LoginPresenter implements BasePresenter {
+
+public class LoginPresenter {
     private BaseView mView;
+
+    @Inject
+    public LoginPresenter(BaseView view) {
+        mView = view;
+    }
 
     public void getLogin(String account, String password) {
         LoginModel.getInstance().getLogin(account, password, new LoginModel.LoginInterface<LoginBean>() {
@@ -24,8 +32,4 @@ public class LoginPresenter implements BasePresenter {
         });
     }
 
-    @Override
-    public void attachView(BaseView view) {
-        mView = view;
-    }
 }

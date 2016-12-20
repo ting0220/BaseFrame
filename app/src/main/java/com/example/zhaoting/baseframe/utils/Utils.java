@@ -89,12 +89,20 @@ public class Utils {
     }
 
     /**
-     * 关闭键盘
+     * 对键盘进行开启、关闭操作
+     *
+     * @param view
+     * @param open true表示开启、false表示关闭
      */
-    public void closeInputMethod() {
+    public void changeInputMethod(View view, boolean open) {
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        if (open) {
+            imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+        } else {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
+
 
     /**
      * 获取app版本号
